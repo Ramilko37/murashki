@@ -4,15 +4,22 @@ import { useForm } from "react-hook-form";
 import styles from './style.module.css'
 import {string} from "prop-types";
 import DropDown from "../DropDown";
+import axios from 'axios'
+import Link from "next/link";
 
 
+const url = 'https://ramilko37.getcourse.ru/pl/api/users';
 
-const PhoneApp = (codeValue: string, setValue: () => void) => {
+
+const headers = {"Access-Control-Allow-Origin": "*", 'content-type': 'multipart/form-data'}
+
+
+const PhoneApp = (codeValue: string, setValue: () => void, checked: boolean) => {
     // handle events
     const { register, handleSubmit, watch, formState: { errors } } = useForm();
 
     // handle submit
-    const onSubmit = (data: object) => alert(JSON.stringify(data));
+    const onSubmit = (data: object) => alert(data);
 
     const [countries, setCountries] = useState([])
 
@@ -65,11 +72,14 @@ const PhoneApp = (codeValue: string, setValue: () => void) => {
 
                         {/* btn section */}
                         <div className={styles.flexWrapper}>
-                            <input
-                                type='submit'
-                                value='Оформить'
-                                className={styles.submitButton}
-                            />
+                            <Link href='/fables'>
+                                <button
+                                    type='submit'
+                                    value='Оформить'
+                                    className={styles.submitButton}
+                                    onClick={onSubmit}
+                                >Оформить</button>
+                            </Link>
                         </div>
                     </div>
                 </form>
